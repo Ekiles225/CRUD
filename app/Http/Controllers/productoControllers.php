@@ -22,6 +22,7 @@ class productoControllers extends Controller
         $producto -> precio = $REQUEST->precio;
         $producto -> cantidad = $REQUEST ->cantidad;
         $producto -> Save();
+        return back();
 
 
        // return view ('welcome');
