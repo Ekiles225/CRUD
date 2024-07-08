@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\productoControllers;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [productoControllers::class, 'showProducto']);
+Route::post('/save', [productoControllers::class, 'store']);
