@@ -38,13 +38,13 @@
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
     <!-- BEGIN PLUGINS STYLES -->
-    <link rel="stylesheet" href="assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="assets/vendor/flatpickr/flatpickr.min.css"><!-- END PLUGINS STYLES -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/open-iconic/font/css/open-iconic-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/%40fortawesome/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/flatpickr/flatpickr.min.css')}}"><!-- END PLUGINS STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" href="assets/stylesheets/theme.min.css" data-skin="default">
-    <link rel="stylesheet" href="assets/stylesheets/theme-dark.min.css" data-skin="dark">
-    <link rel="stylesheet" href="assets/stylesheets/custom.css">
+    <link rel="stylesheet" href="{{asset('assets/stylesheets/theme.min.css')}}" data-skin="default">
+
+    <link rel="stylesheet" href="{{asset('assets/stylesheets/custom.css')}}">
     <script>
       var skin = localStorage.getItem('skin') || 'default';
       var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
@@ -524,26 +524,27 @@
                 <!-- .card-body -->
                 <div class="card-body">
                     <!-- .form -->
-                    <form method="post" action = "{{ url ('/save')}}">
-                    @csrf 
+                    <form method="post" action = "{{ url ('/producto/update' , $producto->id)}}">
+                      @method('put')
+                      @csrf 
                    
                   
                         <legend>Productos</legend> <!-- .form-group -->
                         <div class="form-group">
                           <label for="tf1">Nombre del producto</label>
-                           <input name="prod" type="text" class="form-control"  aria-describedby="tf1Help"rm-text text-muted></small>
+                           <input name="prod" value="{{$producto->prod}}" type="text" class="form-control"  aria-describedby="tf1Help"rm-text text-muted></small>
                         </div><!-- /.form-group -->
                         <!-- .form-group -->
                         <div class="form-group">
                           <label for="tf2">precio</label>
                           <div class="custom-number">
-                            <input name="precio" type="number" class="form-control" min="0" max="10" step="1" value="0" placeholder="Amount (to the nearest dollar)">
+                            <input name="precio" value="{{$producto->precio}}" type="number" class="form-control" min="0" max="10" step="1" value="0" placeholder="Amount (to the nearest dollar)">
                           </div>
                         </div><!-- /.form-group -->
                         <div class="form-group">
                           <label for="tf2">cantidad</label>
                           <div class="custom-number">
-                            <input name="cantidad" type="number" class="form-control"  min="1" step="1" value="0" placeholder="Amount (to the nearest dollar)">
+                            <input name="cantidad" value="{{$producto->cantidad}}" type="number" class="form-control"  min="1" step="1" value="0" placeholder="Amount (to the nearest dollar)">
                           </div>
                         </div><!-- /.form-group -->
                         <!-- .form-group -->
@@ -565,57 +566,7 @@
                       <!-- .table-responsive -->
                       <div class="table-responsive">
                         <!-- .table -->
-                        <table class="table table-hover">
-                          <!-- thead -->
-                          <thead class="thead-light">
-                            <tr>
-                              <th> ID </th>
-                              <th style="min-width:200px"> Product </th>
-                              <th> precio </th>
-                              <th> cantidad </th>
-                              <th style="width:100px; min-width:100px;">Actions</th>
-                            </tr>
-                          </thead><!-- /thead -->
-                          <!-- tbody -->
-                          <tbody>
-                            <!-- tr -->
-                              @foreach($producto as $item)
-                                <tr>
-                                <td>{{$item->id}}</td>
-                                <td> {{$item->nombreproducto}}</td>
-                                <td>{{$item->precio}}</td>
-                                <td> {{$item->cantidad}} </td>
-                                <td class="text-center">
-                                  
-                                  <a href="{{url('/edit/producto', $item->id)}}" class="btn btn-sm btn-icon btn-secondary">
-                                    <i class="fa fa-pencil-alt"></i>
-                                     <span class="sr-only">Edit</span>
-                                  </a> 
-
-
-                                  <form action="/delete/{{$item->id}}" method="post">
-                                    
-                                       @method('delete')
-                                       @csrf
-
-                                       <button type="submit" class="btn btn-sm btn-icon btn-secondary">
-                                       <i class="far fa-trash-alt"></i> 
-                                      <span class="sr-only">Remove</span></button>
-                                  </form>
-                                 
-                                </td>
-
-                              </tr><!-- /tr -->
-
-                              @endforeach
-
-                     
-                             
-                              
-                            <!-- tr -->
-                            
-                          </tbody><!-- /tbody -->
-                        </table><!-- /.table -->
+                       
                       </div><!-- /.table-responsive -->
                     </div><!-- /.card -->
             </div><!-- /.page-inner -->

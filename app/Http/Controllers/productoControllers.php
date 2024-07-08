@@ -10,8 +10,30 @@ class productoControllers extends Controller
 {
     public function showProducto(Request $REQUEST){
 
-               return view ('welcome');
+        $producto = productos::all();
+
+         return view ('welcome', compact('producto'));
                
+    }
+
+    public function delete($id){
+        $producto = productos::find($id);
+        $producto->delete();
+        return back();
+    }
+
+    public function edit($id){
+        $producto = productos::find($id);
+        return view('productos.producto', compact('producto'));
+    }
+
+    public function update($id, Request $request){
+        $producto = productos::find($id);
+        $producto -> nombreproducto = $request->prod;
+        $producto -> precio = $request->precio;
+        $producto -> cantidad = $request ->cantidad;
+        $producto -> Save();
+        return redirect("/");
     }
     public function store(Request $REQUEST){
 
